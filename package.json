@@ -1,0 +1,23 @@
+{
+  "name": "liuforge",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "LiuForge - 个人网站，包含博客、工具集和排行榜",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^3.1.9",
+    "@astrojs/vue": "^4.5.2",
+    "@tailwindcss/vite": "^4.0.0",
+    "astro": "^4.16.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.6.0",
+    "vue": "^3.5.0"
+  }
+}

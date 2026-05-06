@@ -1,0 +1,9 @@
+# Cloudflare Pages 配置文件
+# 部署时 Cloudflare 会自动识别此文件
+
+name = "liuforge"
+compatibility_date = "2025-01-01"
+
+# 静态站点，无需 Workers
+[site]
+bucket = "./dist"

@@ -1,0 +1,89 @@
+/* Tailwind CSS 4 入口 */
+@import "tailwindcss";
+
+/* ===== 自定义主题变量 ===== */
+@theme {
+  /* 主色调 - 薄荷绿 */
+  --color-primary: #6EE7B7;
+  --color-primary-dark: #34D399;
+  --color-primary-light: #A7F3D0;
+
+  /* 背景色系 */
+  --color-bg-dark: #0a0a0a;
+  --color-bg-card: #18181b;
+  --color-bg-card-hover: #27272a;
+
+  /* 字体 */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* ===== 基础样式 ===== */
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-[#0a0a0a] text-zinc-200 font-sans antialiased;
+  min-height: 100vh;
+}
+
+/* ===== 代码块样式 ===== */
+pre {
+  @apply rounded-xl border border-zinc-800 bg-[#0d0d0d] p-4 overflow-x-auto;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+code {
+  font-family: var(--font-mono);
+}
+
+:not(pre) > code {
+  @apply bg-zinc-800 text-primary rounded-md px-1.5 py-0.5 text-sm;
+}
+
+/* ===== View Transitions API 动画 ===== */
+::view-transition-old(root) {
+  animation: fade-out 0.15s ease-out;
+}
+::view-transition-new(root) {
+  animation: fade-in 0.3s ease-in;
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ===== 滚动条美化 ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-zinc-700 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-zinc-600;
+}
+
+/* ===== TOC 锚点平滑偏移 ===== */
+.prose h2,
+.prose h3 {
+  scroll-margin-top: 100px;
+}
+
+/* ===== 选中文字颜色 ===== */
+::selection {
+  @apply bg-primary/30 text-white;
+}

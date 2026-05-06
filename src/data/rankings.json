@@ -1,0 +1,185 @@
+{
+  "lastUpdated": "2025-01-15",
+  "categories": [
+    {
+      "name": "开发工具",
+      "items": [
+        {
+          "rank": 1,
+          "name": "Cursor",
+          "description": "AI 编程助手，基于 VS Code，目前体验最好的 AI IDE",
+          "url": "https://cursor.sh",
+          "tags": ["AI", "编辑器"],
+          "score": 98
+        },
+        {
+          "rank": 2,
+          "name": "Warp",
+          "description": "现代化终端，AI 加持，Rust 构建，速度飞快",
+          "url": "https://www.warp.dev",
+          "tags": ["终端", "AI"],
+          "score": 95
+        },
+        {
+          "rank": 3,
+          "name": "Raycast",
+          "description": "Mac 上的效率启动器，替代 Spotlight，插件生态丰富",
+          "url": "https://raycast.com",
+          "tags": ["效率", "Mac"],
+          "score": 93
+        },
+        {
+          "rank": 4,
+          "name": "Neovim",
+          "description": "Vim 的现代继承者，Lua 配置，插件生态强大",
+          "url": "https://neovim.io",
+          "tags": ["编辑器", "开源"],
+          "score": 91
+        },
+        {
+          "rank": 5,
+          "name": "GitHub Copilot",
+          "description": "GitHub 出品的 AI 编程助手，IDE 内无缝集成",
+          "url": "https://github.com/features/copilot",
+          "tags": ["AI", "代码补全"],
+          "score": 90
+        }
+      ]
+    },
+    {
+      "name": "前端框架",
+      "items": [
+        {
+          "rank": 1,
+          "name": "Next.js",
+          "description": "React 全栈框架，App Router 架构，Vercel 出品",
+          "url": "https://nextjs.org",
+          "tags": ["React", "全栈"],
+          "score": 97
+        },
+        {
+          "rank": 2,
+          "name": "Astro",
+          "description": "内容型网站首选，零 JS 默认输出，多框架兼容",
+          "url": "https://astro.build",
+          "tags": ["静态站点", "多框架"],
+          "score": 96
+        },
+        {
+          "rank": 3,
+          "name": "Nuxt",
+          "description": "Vue 全栈框架，自动导入、文件路由，开发体验极佳",
+          "url": "https://nuxt.com",
+          "tags": ["Vue", "全栈"],
+          "score": 94
+        },
+        {
+          "rank": 4,
+          "name": "SvelteKit",
+          "description": "Svelte 全栈框架，编译时魔法，运行时超轻量",
+          "url": "https://kit.svelte.dev",
+          "tags": ["Svelte", "轻量"],
+          "score": 91
+        },
+        {
+          "rank": 5,
+          "name": "Remix",
+          "description": "React 全栈框架，Web 标准优先，Shopify 出品",
+          "url": "https://remix.run",
+          "tags": ["React", "Web标准"],
+          "score": 89
+        }
+      ]
+    },
+    {
+      "name": "UI 库",
+      "items": [
+        {
+          "rank": 1,
+          "name": "Tailwind CSS",
+          "description": "原子化 CSS 框架，设计系统的最佳实践",
+          "url": "https://tailwindcss.com",
+          "tags": ["CSS", "原子化"],
+          "score": 98
+        },
+        {
+          "rank": 2,
+          "name": "shadcn/ui",
+          "description": "可复制粘贴的组件库，不是传统 npm 包，自主可控",
+          "url": "https://ui.shadcn.com",
+          "tags": ["React", "组件"],
+          "score": 96
+        },
+        {
+          "rank": 3,
+          "name": "Radix UI",
+          "description": "无样式无障碍组件库，行为与样式分离",
+          "url": "https://www.radix-ui.com",
+          "tags": ["无障碍", "React"],
+          "score": 93
+        },
+        {
+          "rank": 4,
+          "name": "Naive UI",
+          "description": "Vue 3 组件库，类型完善，暗色模式原生支持",
+          "url": "https://www.naiveui.com",
+          "tags": ["Vue", "TypeScript"],
+          "score": 90
+        },
+        {
+          "rank": 5,
+          "name": "DaisyUI",
+          "description": "Tailwind CSS 组件库，语义化 class，主题丰富",
+          "url": "https://daisyui.com",
+          "tags": ["Tailwind", "语义化"],
+          "score": 88
+        }
+      ]
+    },
+    {
+      "name": "云服务",
+      "items": [
+        {
+          "rank": 1,
+          "name": "Vercel",
+          "description": "前端部署首选，Git 集成无缝，边缘网络强大",
+          "url": "https://vercel.com",
+          "tags": ["部署", "边缘计算"],
+          "score": 97
+        },
+        {
+          "rank": 2,
+          "name": "Cloudflare Pages",
+          "description": "静态站点部署，全球 CDN，免费额度慷慨",
+          "url": "https://pages.cloudflare.com",
+          "tags": ["部署", "CDN"],
+          "score": 95
+        },
+        {
+          "rank": 3,
+          "name": "Supabase",
+          "description": "开源 Firebase 替代，PostgreSQL 内核，实时订阅",
+          "url": "https://supabase.com",
+          "tags": ["数据库", "开源"],
+          "score": 93
+        },
+        {
+          "rank": 4,
+          "name": "PlanetScale",
+          "description": "MySQL 兼容的 Serverless 数据库，分支工作流独特",
+          "url": "https://planetscale.com",
+          "tags": ["数据库", "Serverless"],
+          "score": 90
+        },
+        {
+          "rank": 5,
+          "name": "Railway",
+          "description": "部署平台，模板丰富，按使用量计费，开发体验好",
+          "url": "https://railway.app",
+          "tags": ["部署", "PaaS"],
+          "score": 88
+        }
+      ]
+    }
+  ]
+}

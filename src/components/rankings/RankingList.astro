@@ -1,0 +1,125 @@
+---
+// 排行榜列表 - 读取静态 JSON 数据，支持分类切换
+import rankingsData from '@/data/rankings.json';
+
+interface RankingItem {
+  rank: number;
+  name: string;
+  description: string;
+  url: string;
+  tags: string[];
+  score: number;
+}
+
+const { categories, lastUpdated } = rankingsData;
+---
+
+<div>
+  <!-- 最后更新时间 -->
+  <div class="flex items-center gap-2 mb-8 text-sm text-zinc-500">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <polyline points="12 6 12 12 16 14" />
+    </svg>
+    <span>最后更新：{lastUpdated}</span>
+  </div>
+
+  <!-- 分类标签切换 -->
+  <div id="ranking-tabs" class="flex flex-wrap gap-2 mb-8">
+    {
+      categories.map((cat, idx) => (
+        <button
+          class="ranking-tab px-4 py-2 rounded-lg text-sm font-medium transition-all bg-zinc-800 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700"
+          data-index={String(idx)}
+        >
+          {cat.name}
+        </button>
+      ))
+    }
+  </div>
+
+  <!-- 排行列表容器 -->
+  <div id="ranking-panels">
+    {categories.map((cat, idx) => (
+      <div
+        class="ranking-panel space-y-3"
+        data-index={String(idx)}
+        style={idx === 0 ? '' : 'display: none;'}
+      >
+        {cat.items.map((item: RankingItem) => (
+          <div class="flex items-start gap-4 p-4 rounded-xl bg-bg-card border border-zinc-800 hover:border-primary/20 transition-all">
+            <!-- 排名数字 -->
+            <div
+              class={`shrink-0 w-10 h-10 rounded-lg flex items-center justify-center font-bold text-sm ${
+                item.rank <= 3
+                  ? 'bg-primary text-black'
+                  : 'bg-zinc-800 text-zinc-400'
+              }`}
+            >
+              {item.rank}
+            </div>
+
+            <!-- 内容 -->
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1">
+                <h3 class="font-semibold text-zinc-100">{item.name}</h3>
+                <span class="text-xs text-primary font-mono">{item.score}分</span>
+              </div>
+              <p class="text-sm text-zinc-400 mb-2">{item.description}</p>
+              <div class="flex flex-wrap gap-1.5">
+                {item.tags.map((tag: string) => (
+                  <span class="px-1.5 py-0.5 rounded text-xs bg-zinc-800 text-zinc-500">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <!-- 外链 -->
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="shrink-0 px-3 py-1.5 rounded-lg bg-zinc-800 text-zinc-400 text-xs font-medium hover:bg-primary/20 hover:text-primary transition-colors"
+            >
+              访问
+            </a>
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  // 分类标签切换逻辑
+  const tabs = document.querySelectorAll('.ranking-tab');
+  const panels = document.querySelectorAll('.ranking-panel');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const idx = (tab as HTMLElement).dataset.index;
+
+      // 更新标签样式
+      tabs.forEach((t) => {
+        t.className = 'ranking-tab px-4 py-2 rounded-lg text-sm font-medium transition-all bg-zinc-800 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700';
+      });
+      tab.className = 'ranking-tab px-4 py-2 rounded-lg text-sm font-medium transition-all bg-primary text-black';
+
+      // 切换面板
+      panels.forEach((p) => {
+        (p as HTMLElement).style.display = 'none';
+      });
+      const activePanel = document.querySelector(`.ranking-panel[data-index="${idx}"]`) as HTMLElement;
+      if (activePanel) {
+        activePanel.style.display = '';
+      }
+    });
+  });
+
+  // 默认激活第一个标签
+  const firstTab = document.querySelector('.ranking-tab') as HTMLElement;
+  if (firstTab) {
+    firstTab.className = 'ranking-tab px-4 py-2 rounded-lg text-sm font-medium transition-all bg-primary text-black';
+  }
+</script>

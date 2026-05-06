@@ -1,0 +1,26 @@
+---
+// Base64 工具页面
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import Base64Tool from '@/components/tools/Base64Tool.vue';
+---
+
+<BaseLayout
+  title="Base64 编码/解码"
+  description="在线 Base64 编码解码工具，支持实时转换"
+>
+  <!-- 面包屑 -->
+  <nav class="flex items-center gap-2 text-sm text-zinc-500 mb-8">
+    <a href="/tools" class="hover:text-zinc-300 transition-colors">工具集</a>
+    <span>/</span>
+    <span class="text-zinc-300">Base64</span>
+  </nav>
+
+  <div class="mb-8">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-zinc-100 mb-2">Base64 编码/解码</h1>
+    <p class="text-zinc-500">文本与 Base64 字符串互转。支持编码和解码双向操作，实时预览结果。</p>
+  </div>
+
+  <div class="rounded-2xl bg-bg-card border border-zinc-800 p-6">
+    <Base64Tool client:load />
+  </div>
+</BaseLayout>

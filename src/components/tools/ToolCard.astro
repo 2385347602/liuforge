@@ -1,0 +1,40 @@
+---
+// 工具卡片 - 用于工具集总览页
+interface Props {
+  title: string;
+  icon: string;
+  description: string;
+  href: string;
+}
+
+const { title, icon, description, href } = Astro.props;
+---
+
+<a
+  href={href}
+  class="block group p-6 rounded-2xl bg-bg-card border border-zinc-800 hover:border-primary/30 hover:bg-bg-card-hover transition-all duration-300"
+>
+  <!-- 图标 -->
+  <div class="text-3xl mb-4 group-hover:scale-110 transition-transform duration-300 inline-block">
+    {icon}
+  </div>
+
+  <!-- 标题 -->
+  <h3 class="text-lg font-semibold text-zinc-100 group-hover:text-primary transition-colors mb-2">
+    {title}
+  </h3>
+
+  <!-- 描述 -->
+  <p class="text-zinc-400 text-sm leading-relaxed mb-4">
+    {description}
+  </p>
+
+  <!-- 跳转按钮 -->
+  <span class="inline-flex items-center gap-1 text-primary text-sm font-medium">
+    打开工具
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-0.5 transition-transform">
+      <path d="M5 12h14" />
+      <path d="m12 5 7 7-7 7" />
+    </svg>
+  </span>
+</a>

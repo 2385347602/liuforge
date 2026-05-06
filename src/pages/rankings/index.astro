@@ -1,0 +1,17 @@
+---
+// 排行榜页面 - 分类排行展示
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import RankingList from '@/components/rankings/RankingList.astro';
+---
+
+<BaseLayout
+  title="排行榜"
+  description="精选开发工具与资源排行榜"
+>
+  <div class="mb-8">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-zinc-100 mb-2">排行榜</h1>
+    <p class="text-zinc-500">精选开发工具与资源排行，主观评价，持续更新。</p>
+  </div>
+
+  <RankingList />
+</BaseLayout>

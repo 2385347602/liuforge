@@ -1,0 +1,94 @@
+---
+title: "TypeScript 实用技巧：让你的代码更安全"
+date: 2025-01-20
+tags: ["TypeScript", "前端"]
+description: "分享 5 个日常开发中非常实用的 TypeScript 技巧，帮助你写出更类型安全的代码。"
+---
+
+## 1. 使用 `as const` 获得精确类型
+
+当你声明一个常量对象时，TypeScript 默认推导出的类型会比较宽泛。使用 `as const` 可以让每个属性都变成只读的字面量类型：
+
+```typescript
+// ❌ 类型过于宽泛
+const config = {
+  mode: 'production',
+  port: 3000,
+};
+// config.mode 的类型是 string
+
+// ✅ 精确的字面量类型
+const config = {
+  mode: 'production',
+  port: 3000,
+} as const;
+// config.mode 的类型是 'production'
+```
+
+## 2. 用 `satisfies` 验证类型而不改变推导
+
+`satisfies` 是 TypeScript 4.9 引入的操作符，它可以验证一个表达式是否满足某个类型，但不会改变其推导结果：
+
+```typescript
+type RGB = readonly [red: number, green: number, blue: number];
+
+const red: RGB = [255, 0, 0]; // 类型是 RGB
+const blue = [0, 0, 255] satisfies RGB; // 类型是 readonly [0, 0, 255]
+```
+
+## 3. 模板字面量类型
+
+利用模板字面量类型可以创建非常精确的字符串约束：
+
+```typescript
+type EventName = `on${Capitalize<string>}`;
+// 'onClick' | 'onChange' | 'onSubmit' ...
+
+type CSSUnit = `${number}${'px' | 'rem' | 'em'}`;
+// '16px' | '1.5rem' | '2em' ...
+```
+
+## 4. `Pick` + `Partial` 组合使用
+
+组合使用内置工具类型可以精确描述复杂的类型需求：
+
+```typescript
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+}
+
+// 更新接口：只允许修改 name 和 avatar，且都是可选的
+type UpdateUserPayload = Partial<Pick<User, 'name' | 'avatar'>>;
+```
+
+## 5. 用 `never` 做穷尽性检查
+
+在 `switch` 或条件分支中，利用 `never` 确保所有可能的情况都被处理：
+
+```typescript
+type Status = 'idle' | 'loading' | 'success' | 'error';
+
+function handleStatus(status: Status) {
+  switch (status) {
+    case 'idle':
+      return '等待中...';
+    case 'loading':
+      return '加载中...';
+    case 'success':
+      return '加载成功';
+    case 'error':
+      return '加载失败';
+    default:
+      // 如果 Status 新增了值但这里没处理，编译时就会报错
+      const _exhaustive: never = status;
+      return _exhaustive;
+  }
+}
+```
+
+---
+
+> 类型系统不是束缚，而是你最好的文档和测试。
