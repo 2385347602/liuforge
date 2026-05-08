@@ -1,0 +1,207 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+
+const tags = ['独立开发者', '旅行者', '全栈工程师', '开源爱好者'];
+const techStack = [
+  { name: 'Vue', color: '#42b883' },
+  { name: 'React', color: '#61dafb' },
+  { name: 'TypeScript', color: '#3178c6' },
+  { name: 'Flutter', color: '#02569b' },
+  { name: 'Python', color: '#3776ab' },
+  { name: 'Git', color: '#f05032' },
+  { name: 'Docker', color: '#2496ed' },
+  { name: 'Node.js', color: '#339933' },
+  { name: 'Tailwind', color: '#06b6d4' },
+  { name: 'Astro', color: '#ff5a03' },
+  { name: 'MySQL', color: '#4479a1' },
+  { name: 'Linux', color: '#fcc624' },
+];
+
+const hobbies = [
+  { name: '原神', icon: '⚔️', gradient: 'from-amber-600 to-orange-500', desc: '提瓦特大陆冒险中' },
+  { name: '动漫', icon: '🎬', gradient: 'from-pink-600 to-rose-500', desc: '海贼王忠实粉丝' },
+  { name: '数码', icon: '💻', gradient: 'from-cyan-600 to-blue-500', desc: '极客装备控' },
+  { name: '周杰伦', icon: '🎵', gradient: 'from-purple-600 to-violet-500', desc: 'Jay Chou forever' },
+];
+---
+
+<BaseLayout title="关于我" description="关于我 - 独立开发者，全栈工程师，技术爱好者">
+  <!-- ====== Hero 区域 ====== -->
+  <section class="py-12 sm:py-16 text-center">
+    <!-- 头像 -->
+    <div class="relative mx-auto w-28 h-28 sm:w-32 sm:h-32 mb-6">
+      <div class="w-full h-full rounded-full bg-gradient-to-br from-primary via-cyan-400 to-purple-500 p-[3px]">
+        <div class="w-full h-full rounded-full bg-bg-dark flex items-center justify-center overflow-hidden">
+          <!-- 占位头像 SVG -->
+          <svg class="w-3/5 h-3/5 text-zinc-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 名字 -->
+    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-3">
+      <span class="bg-gradient-to-r from-primary via-cyan-300 to-purple-400 bg-clip-text text-transparent">
+        LiuForge
+      </span>
+    </h1>
+
+    <!-- 标签 -->
+    <div class="flex flex-wrap justify-center gap-2 mb-8">
+      {tags.map((tag) => (
+        <span class="px-3.5 py-1.5 rounded-full bg-zinc-800/80 border border-zinc-700/50 text-zinc-300 text-xs font-medium hover:border-primary/40 hover:text-primary transition-colors cursor-default">
+          {tag}
+        </span>
+      ))}
+    </div>
+
+    <!-- 装饰线 -->
+    <div class="flex items-center justify-center gap-3">
+      <span class="block h-px w-12 bg-gradient-to-r from-transparent to-zinc-600"></span>
+      <span class="text-zinc-600 text-lg">✦</span>
+      <span class="block h-px w-12 bg-gradient-to-l from-transparent to-zinc-600"></span>
+    </div>
+  </section>
+
+  <!-- ====== Metro 风格卡片网格 ====== -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-auto mb-16">
+    <!-- 个人简介 - 蓝紫渐变 -->
+    <div class="col-span-1 row-span-1 rounded-2xl bg-gradient-to-br from-blue-600/80 to-purple-700/80 backdrop-blur-sm p-5 flex flex-col justify-between min-h-[160px]">
+      <div>
+        <div class="text-white/60 text-xs font-medium uppercase tracking-wider mb-2">About Me</div>
+        <p class="text-white/90 text-sm leading-relaxed">
+          热爱技术，热爱生活。喜欢用代码创造有意思的东西，探索技术与艺术的交叉点。
+        </p>
+      </div>
+      <div class="text-3xl mt-3">🧑‍💻</div>
+    </div>
+
+    <!-- 座右铭 - 橙黄渐变 -->
+    <div class="col-span-1 row-span-1 rounded-2xl bg-gradient-to-br from-amber-500/80 to-orange-600/80 backdrop-blur-sm p-5 flex flex-col justify-between min-h-[160px]">
+      <div>
+        <div class="text-white/60 text-xs font-medium uppercase tracking-wider mb-2">Motto</div>
+        <p class="text-white/90 text-sm italic leading-relaxed">
+          "Stay hungry, stay foolish. <br/>Code changes the world."
+        </p>
+      </div>
+      <div class="text-3xl mt-3">💡</div>
+    </div>
+
+    <!-- Hello World 动态文字 - 跨两列，粉紫渐变 -->
+    <div class="col-span-1 sm:col-span-2 row-span-1 rounded-2xl bg-gradient-to-br from-pink-500/80 via-purple-600/80 to-indigo-600/80 backdrop-blur-sm p-6 flex flex-col justify-center min-h-[160px] relative overflow-hidden">
+      <div class="absolute top-0 right-0 text-[120px] text-white/5 leading-none select-none font-mono -mr-4 -mt-4">
+        { }
+      </div>
+      <div class="text-white/50 text-xs font-medium uppercase tracking-wider mb-3">Code Corner</div>
+      <pre class="!bg-transparent !border-0 !p-0 text-white/90 text-sm sm:text-base font-mono leading-relaxed overflow-hidden">
+        <code class="!bg-transparent">console.log("<span class="text-yellow-300">Hello World</span>");</code>
+      </pre>
+    </div>
+
+    <!-- 技术栈 - 跨两列两行 -->
+    <div class="col-span-1 sm:col-span-2 row-span-2 rounded-2xl bg-gradient-to-br from-slate-800/90 to-zinc-900/90 backdrop-blur-sm border border-zinc-700/50 p-5 flex flex-col min-h-[340px]">
+      <div class="text-zinc-500 text-xs font-medium uppercase tracking-wider mb-4">Tech Stack</div>
+      <div class="grid grid-cols-4 gap-3 flex-1">
+        {techStack.map((tech) => (
+          <div class="flex flex-col items-center gap-1.5 group cursor-default">
+            <span class="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold text-white/80 group-hover:text-white transition-colors" style={`background: ${tech.color}30; border: 1px solid ${tech.color}40`}>
+              {tech.name.slice(0, 1)}
+            </span>
+            <span class="text-[10px] text-zinc-500 group-hover:text-zinc-300 transition-colors text-center leading-tight">{tech.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- 位置/年份信息 -->
+    <div class="col-span-1 row-span-1 rounded-2xl bg-gradient-to-br from-teal-600/80 to-cyan-700/80 backdrop-blur-sm p-5 flex flex-col justify-between min-h-[160px]">
+      <div>
+        <div class="text-white/60 text-xs font-medium uppercase tracking-wider mb-2">Location</div>
+        <p class="text-white/90 text-sm">📍 中国·杭州</p>
+        <p class="text-white/60 text-xs mt-2">Since 2020</p>
+      </div>
+      <div class="text-3xl mt-3">🌍</div>
+    </div>
+
+    <!-- MBTI 人格卡片 -->
+    <div class="col-span-1 row-span-1 rounded-2xl bg-gradient-to-br from-indigo-600/80 to-violet-700/80 backdrop-blur-sm p-5 flex flex-col justify-between min-h-[160px]">
+      <div>
+        <div class="text-white/60 text-xs font-medium uppercase tracking-wider mb-2">Personality</div>
+        <p class="text-white/90 text-lg font-bold tracking-wide">INFJ-T</p>
+        <p class="text-white/60 text-xs mt-1">倡导者 · 理想主义者</p>
+      </div>
+      <div class="text-3xl mt-3">🧠</div>
+    </div>
+
+    <!-- 项目展示 - 海贼王风格 -->
+    <div class="col-span-1 sm:col-span-2 row-span-1 rounded-2xl bg-gradient-to-br from-red-600/80 to-orange-600/80 backdrop-blur-sm p-6 flex items-center gap-4 min-h-[140px] relative overflow-hidden">
+      <div class="absolute top-0 right-0 text-[100px] text-white/5 leading-none select-none -mr-2 -mt-2">
+        ⚓
+      </div>
+      <div class="shrink-0 w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-2xl">
+        🏴‍☠️
+      </div>
+      <div class="relative z-10">
+        <div class="text-white/50 text-xs font-medium uppercase tracking-wider mb-1">Featured Project</div>
+        <p class="text-white/90 font-semibold text-lg">One Piece Tracker</p>
+        <p class="text-white/60 text-sm">海贼王剧情追踪器 · 记录每一集的感动</p>
+      </div>
+    </div>
+
+    <!-- 兴趣爱好卡片们 -->
+    {hobbies.map((hobby) => (
+      <div class={`col-span-1 row-span-1 rounded-2xl bg-gradient-to-br ${hobby.gradient}/80 backdrop-blur-sm p-5 flex flex-col justify-between min-h-[160px]`}>
+        <div>
+          <div class="text-white/60 text-xs font-medium uppercase tracking-wider mb-2">Hobby</div>
+          <p class="text-white/90 font-semibold text-base">{hobby.name}</p>
+          <p class="text-white/60 text-xs mt-1">{hobby.desc}</p>
+        </div>
+        <div class="text-3xl mt-3">{hobby.icon}</div>
+      </div>
+    ))}
+  </div>
+
+  <!-- ====== 页脚信息区 ====== -->
+  <section class="border-t border-zinc-800/50 pt-8 pb-12">
+    <div class="flex flex-col items-center gap-6">
+      <!-- 社交媒体图标 -->
+      <div class="flex items-center gap-4">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-primary hover:border-primary/30 transition-all" title="GitHub">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="#" class="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-primary hover:border-primary/30 transition-all" title="Twitter/X">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="#" class="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-primary hover:border-primary/30 transition-all" title="掘金">
+          <span class="text-sm font-bold">掘</span>
+        </a>
+        <a href="#" class="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-400 hover:text-primary hover:border-primary/30 transition-all" title="RSS">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.18" cy="17.82" r="2.18"/><path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z"/></svg>
+        </a>
+      </div>
+
+      <!-- 标签云 -->
+      <div class="flex flex-wrap justify-center gap-2 text-xs text-zinc-500">
+        <span class="px-3 py-1 rounded-lg bg-zinc-800/60 hover:text-primary transition-colors cursor-default">JavaScript</span>
+        <span class="px-3 py-1 rounded-lg bg-zinc-800/60 hover:text-primary transition-colors cursor-default">TypeScript</span>
+        <span class="px-3 py-1 rounded-lg bg-zinc-800/60 hover:text-primary transition-colors cursor-default">Vue.js</span>
+        <span class="px-3 py-1 rounded-lg bg-zinc-800/60 hover:text-primary transition-colors cursor-default">React</span>
+        <span class="px-3 py-1 rounded-lg bg-zinc-800/60 hover:text-primary transition-colors cursor-default">Node.js</span>
+        <span class="px-3 py-1 rounded-lg bg-zinc-800/60 hover:text-primary transition-colors cursor-default">Python</span>
+        <span class="px-3 py-1 rounded-lg bg-zinc-800/60 hover:text-primary transition-colors cursor-default">Docker</span>
+        <span class="px-3 py-1 rounded-lg bg-zinc-800/60 hover:text-primary transition-colors cursor-default">Flutter</span>
+        <span class="px-3 py-1 rounded-lg bg-zinc-800/60 hover:text-primary transition-colors cursor-default">Git</span>
+        <span class="px-3 py-1 rounded-lg bg-zinc-800/60 hover:text-primary transition-colors cursor-default">Astro</span>
+        <span class="px-3 py-1 rounded-lg bg-zinc-800/60 hover:text-primary transition-colors cursor-default">Tailwind</span>
+      </div>
+
+      <!-- 备案信息和日期 -->
+      <div class="text-center text-xs text-zinc-600 space-y-1">
+        <p>ICP 备案号：浙 ICP 备 XXXXXXXX 号-1</p>
+        <p>© {new Date().getFullYear()} LiuForge · 保持热爱，奔赴山海</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
