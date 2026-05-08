@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import HabitTracker from '@/components/tools/HabitTracker.vue';
+---
+
+<BaseLayout title="21天习惯追踪器" description="21天习惯打卡，追踪连续天数，建立自律习惯">
+  <nav class="flex items-center gap-2 text-sm text-zinc-500 mb-8">
+    <a href="/tools" class="hover:text-zinc-300 transition-colors">工具集</a>
+    <span>/</span>
+    <span class="text-zinc-300">21天习惯追踪器</span>
+  </nav>
+  <div class="mb-8">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-zinc-100 mb-2">21天习惯追踪器</h1>
+    <p class="text-zinc-500">一次只改一个习惯。21天连续打卡，建立真正的自律。先改睡眠时间。</p>
+  </div>
+  <div class="rounded-2xl bg-bg-card border border-zinc-800 p-6">
+    <HabitTracker client:load />
+  </div>
+</BaseLayout>

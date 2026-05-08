@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import RetirementCalc from '@/components/tools/RetirementCalc.vue';
+---
+
+<BaseLayout title="退休计算器" description="基于4%法则的退休资产计算器">
+  <nav class="flex items-center gap-2 text-sm text-zinc-500 mb-8">
+    <a href="/tools" class="hover:text-zinc-300 transition-colors">工具集</a>
+    <span>/</span>
+    <span class="text-zinc-300">退休计算器</span>
+  </nav>
+  <div class="mb-8">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-zinc-100 mb-2">4%法则退休计算器</h1>
+    <p class="text-zinc-500">输入年支出，自动计算退休目标资产（年支出 × 25），反推每年需积累金额。</p>
+  </div>
+  <div class="rounded-2xl bg-bg-card border border-zinc-800 p-6">
+    <RetirementCalc client:load />
+  </div>
+</BaseLayout>

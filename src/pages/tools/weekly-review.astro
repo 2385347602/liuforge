@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import WeeklyReview from '@/components/tools/WeeklyReview.vue';
+---
+
+<BaseLayout title="周复盘模板" description="每周复盘：做对了什么、做错了什么、下周改一件事">
+  <nav class="flex items-center gap-2 text-sm text-zinc-500 mb-8">
+    <a href="/tools" class="hover:text-zinc-300 transition-colors">工具集</a>
+    <span>/</span>
+    <span class="text-zinc-300">周复盘模板</span>
+  </nav>
+  <div class="mb-8">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-zinc-100 mb-2">周复盘模板</h1>
+    <p class="text-zinc-500">每周五花20分钟，回顾三个问题：做对了什么、做错了什么、下周改一件事。找规律，不只是记流水账。</p>
+  </div>
+  <div class="rounded-2xl bg-bg-card border border-zinc-800 p-6">
+    <WeeklyReview client:load />
+  </div>
+</BaseLayout>

@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import BalanceSheet from '@/components/tools/BalanceSheet.vue';
+---
+
+<BaseLayout title="家庭资产负债表" description="管理家庭资产和负债，追踪净资产变化">
+  <nav class="flex items-center gap-2 text-sm text-zinc-500 mb-8">
+    <a href="/tools" class="hover:text-zinc-300 transition-colors">工具集</a>
+    <span>/</span>
+    <span class="text-zinc-300">家庭资产负债表</span>
+  </nav>
+  <div class="mb-8">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-zinc-100 mb-2">家庭资产负债表</h1>
+    <p class="text-zinc-500">追踪资产和负债，计算净资产与应急金覆盖率。所有数据存储在浏览器本地。</p>
+  </div>
+  <div class="rounded-2xl bg-bg-card border border-zinc-800 p-6">
+    <BalanceSheet client:load />
+  </div>
+</BaseLayout>

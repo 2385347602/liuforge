@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import MarketValidation from '@/components/tools/MarketValidation.vue';
+---
+
+<BaseLayout title="需求验证记录器" description="创业想法需求验证，访谈记录，付费意愿统计">
+  <nav class="flex items-center gap-2 text-sm text-zinc-500 mb-8">
+    <a href="/tools" class="hover:text-zinc-300 transition-colors">工具集</a>
+    <span>/</span>
+    <span class="text-zinc-300">需求验证记录器</span>
+  </nav>
+  <div class="mb-8">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-zinc-100 mb-2">需求验证记录器</h1>
+    <p class="text-zinc-500">找真实的潜在用户聊，记录他们现在怎么解决问题的、是否愿意付钱。先验证需求，再写代码。</p>
+  </div>
+  <div class="rounded-2xl bg-bg-card border border-zinc-800 p-6">
+    <MarketValidation client:load />
+  </div>
+</BaseLayout>

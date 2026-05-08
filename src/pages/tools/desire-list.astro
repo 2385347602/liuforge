@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import DesireList from '@/components/tools/DesireList.vue';
+---
+
+<BaseLayout title="欲望清理清单" description="记录想买的东西，每季度回看冲动率">
+  <nav class="flex items-center gap-2 text-sm text-zinc-500 mb-8">
+    <a href="/tools" class="hover:text-zinc-300 transition-colors">工具集</a>
+    <span>/</span>
+    <span class="text-zinc-300">欲望清理清单</span>
+  </nav>
+  <div class="mb-8">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-zinc-100 mb-2">欲望清理清单</h1>
+    <p class="text-zinc-500">记录每次"想要"，按季度回顾。区分真正的需求和一时冲动，看冲动率到底有多高。</p>
+  </div>
+  <div class="rounded-2xl bg-bg-card border border-zinc-800 p-6">
+    <DesireList client:load />
+  </div>
+</BaseLayout>

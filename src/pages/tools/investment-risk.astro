@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import InvestmentRisk from '@/components/tools/InvestmentRisk.vue';
+---
+
+<BaseLayout title="投资风险评估" description="持仓分析、30%集中度警戒线、全亏测试">
+  <nav class="flex items-center gap-2 text-sm text-zinc-500 mb-8">
+    <a href="/tools" class="hover:text-zinc-300 transition-colors">工具集</a>
+    <span>/</span>
+    <span class="text-zinc-300">投资风险评估</span>
+  </nav>
+  <div class="mb-8">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-zinc-100 mb-2">投资风险评估</h1>
+    <p class="text-zinc-500">设定你的投资铁律，检查单一资产是否超过30%。每项资产全部亏损对生活的影响评估。</p>
+  </div>
+  <div class="rounded-2xl bg-bg-card border border-zinc-800 p-6">
+    <InvestmentRisk client:load />
+  </div>
+</BaseLayout>
