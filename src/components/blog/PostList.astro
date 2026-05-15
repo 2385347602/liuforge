@@ -1,5 +1,4 @@
 ---
-// 博客文章列表 - 支持按 tag 筛选
 import PostCard from './PostCard.astro';
 import type { CollectionEntry } from 'astro:content';
 
@@ -12,14 +11,11 @@ interface Props {
 const { posts, activeTag, allTags } = Astro.props;
 ---
 
-<!-- 标签筛选栏 -->
-<div class="flex flex-wrap gap-2 mb-8">
+<div class="mb-8 flex flex-wrap gap-2">
   <a
     href="/blog"
-    class={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
-      !activeTag
-        ? 'bg-primary text-black shadow-lg shadow-primary/20'
-        : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700'
+    class={`rounded-lg px-3 py-1.5 text-sm font-semibold transition-all ${
+      !activeTag ? 'bg-primary text-black shadow-lg shadow-primary/20' : 'bg-white/8 text-zinc-400 hover:text-zinc-100'
     }`}
   >
     全部
@@ -29,10 +25,8 @@ const { posts, activeTag, allTags } = Astro.props;
     return (
       <a
         href={isActive ? '/blog' : `/blog?tag=${encodeURIComponent(tag)}`}
-        class={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
-          isActive
-            ? 'bg-primary text-black shadow-lg shadow-primary/20'
-            : 'bg-zinc-800 text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700'
+        class={`rounded-lg px-3 py-1.5 text-sm font-semibold transition-all ${
+          isActive ? 'bg-primary text-black shadow-lg shadow-primary/20' : 'bg-white/8 text-zinc-400 hover:text-zinc-100'
         }`}
       >
         {tag}
@@ -41,16 +35,10 @@ const { posts, activeTag, allTags } = Astro.props;
   })}
 </div>
 
-<!-- 文章列表 -->
 {posts.length === 0 ? (
-  <div class="text-center py-20 text-zinc-500">
-    <p class="text-4xl mb-4">📝</p>
-    <p>暂无该标签的文章</p>
-  </div>
+  <div class="glass rounded-2xl py-20 text-center text-zinc-500">暂无该标签的文章</div>
 ) : (
   <div class="grid gap-4 sm:grid-cols-2">
-    {posts.map((post) => (
-      <PostCard post={post} />
-    ))}
+    {posts.map((post) => <PostCard post={post} />)}
   </div>
 )}

@@ -1,5 +1,4 @@
 ---
-// 基础布局组件 - 所有页面的外壳
 import Header from './Header.astro';
 import Footer from './Footer.astro';
 import '@/styles/global.css';
@@ -7,38 +6,86 @@ import '@/styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  fullWidth?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, fullWidth = false } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="zh-CN" class="dark">
+<html lang="zh-CN" class="dark" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description || "LiuForge - 个人网站，分享技术与工具"} />
+    <meta name="description" content={description || 'LiuForge - 个人品牌主页、项目作品集与日记随笔'} />
     <title>{title} | LiuForge</title>
-
-    <!-- View Transitions -->
     <meta name="astro-view-transitions-enabled" content="true" />
     <meta name="view-transition" content="same-origin" />
-
-    <!-- Inter 字体 -->
+    <meta name="theme-color" content="#050505" />
+    <link rel="alternate" type="application/rss+xml" title="LiuForge RSS" href="/rss.xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body class="min-h-screen flex flex-col">
+    <div id="scroll-progress" aria-hidden="true"></div>
+    <div id="cursor-glow" aria-hidden="true"></div>
     <Header />
-    <main class="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class:list={[
+      'flex-1 w-full',
+      fullWidth ? '' : 'max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8',
+    ]}>
       <slot />
     </main>
     <Footer />
+    <script>
+      const root = document.documentElement;
+      const applyTheme = (mode: string) => {
+        const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        const theme = mode === 'system' ? (prefersLight ? 'light' : 'dark') : mode;
+        root.dataset.theme = theme;
+        root.classList.toggle('dark', theme === 'dark');
+        root.classList.toggle('light', theme === 'light');
+        document.querySelectorAll<HTMLElement>('[data-theme-choice]').forEach((button) => {
+          button.setAttribute('aria-pressed', button.dataset.themeChoice === mode ? 'true' : 'false');
+        });
+      };
+
+      const savedTheme = localStorage.getItem('theme-mode') || 'system';
+      applyTheme(savedTheme);
+      window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+        if ((localStorage.getItem('theme-mode') || 'system') === 'system') applyTheme('system');
+      });
+
+      document.addEventListener('click', (event) => {
+        const eventTarget = event.target;
+        if (!(eventTarget instanceof Element)) return;
+        const target = eventTarget.closest<HTMLElement>('[data-theme-choice]');
+        if (!target) return;
+        const mode = target.dataset.themeChoice;
+        if (!mode) return;
+        localStorage.setItem('theme-mode', mode);
+        applyTheme(mode);
+      });
+
+      const progress = document.getElementById('scroll-progress');
+      const setProgress = () => {
+        const height = document.documentElement.scrollHeight - window.innerHeight;
+        const value = height > 0 ? window.scrollY / height : 0;
+        if (progress) progress.style.transform = `scaleX(${value})`;
+      };
+      setProgress();
+      window.addEventListener('scroll', setProgress, { passive: true });
+
+      const glow = document.getElementById('cursor-glow');
+      window.addEventListener('pointermove', (event) => {
+        if (!glow) return;
+        glow.style.transform = `translate(${event.clientX - 160}px, ${event.clientY - 160}px)`;
+      }, { passive: true });
+    </script>
   </body>
 </html>

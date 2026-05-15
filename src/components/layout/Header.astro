@@ -1,5 +1,4 @@
 ---
-// 顶部导航栏 - Logo + 导航链接 + 暗色模式
 const navLinks = [
   { href: '/', label: '首页' },
   { href: '/blog', label: '博客' },
@@ -7,31 +6,41 @@ const navLinks = [
   { href: '/rankings', label: '排行榜' },
   { href: '/about', label: '关于' },
   { href: '/gear', label: '装备' },
+
+
+  { href: '/blog', label: '文章' },
+  { href: '/projects', label: '项目' },
+  { href: '/timeline', label: '时间线' },
+  { href: '/gallery', label: '相册' },
+  { href: '/resume', label: '简历' },
+  { href: '/about', label: '关于' },
 ];
+
 const currentPath = Astro.url.pathname;
 ---
-<header class="sticky top-0 z-50 backdrop-blur-md bg-bg-dark/80 border-b border-zinc-800/50">
-  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-    <!-- Logo -->
-    <a href="/" class="flex items-center gap-2 font-bold text-xl tracking-tight hover:opacity-80 transition-opacity">
-      <span class="text-primary text-2xl">&gt;</span>
-      <span class="bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
+
+<header class="sticky top-0 z-50 border-b border-white/10 bg-black/35 backdrop-blur-2xl">
+  <nav class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <a href="/" class="group flex items-center gap-2 font-bold tracking-tight">
+      <span class="grid h-8 w-8 place-items-center rounded-lg border border-white/15 bg-white/10 text-primary shadow-lg shadow-primary/10 transition-transform group-hover:-rotate-6">
+        LF
+      </span>
+      <span class="bg-gradient-to-r from-white via-primary-light to-cyan-200 bg-clip-text text-lg text-transparent">
         LiuForge
       </span>
     </a>
 
-    <!-- 导航链接 - 桌面端 -->
-    <div class="hidden sm:flex items-center gap-1">
+    <div class="hidden items-center gap-1 lg:flex">
       {
         navLinks.map((link) => {
           const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
           return (
             <a
               href={link.href}
-              class={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+              class={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                 isActive
-                  ? 'text-primary bg-primary/10'
-                  : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50'
+                  ? 'bg-white/12 text-white'
+                  : 'text-zinc-400 hover:bg-white/8 hover:text-zinc-100'
               }`}
             >
               {link.label}
@@ -41,52 +50,56 @@ const currentPath = Astro.url.pathname;
       }
     </div>
 
-    <!-- 移动端汉堡菜单按钮 -->
-    <button
-      id="mobile-menu-btn"
-      class="sm:hidden p-2 rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800"
-      aria-label="打开菜单"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="4" x2="20" y1="6" y2="6" />
-        <line x1="4" x2="20" y1="12" y2="12" />
-        <line x1="4" x2="20" y1="18" y2="18" />
-      </svg>
-    </button>
+    <div class="flex items-center gap-2">
+      <div class="hidden rounded-lg border border-white/10 bg-white/5 p-1 sm:flex" aria-label="主题切换">
+        <button type="button" data-theme-choice="system" class="theme-choice" title="跟随系统" aria-pressed="true">A</button>
+        <button type="button" data-theme-choice="dark" class="theme-choice" title="深色" aria-pressed="false">D</button>
+        <button type="button" data-theme-choice="light" class="theme-choice" title="浅色" aria-pressed="false">L</button>
+      </div>
+      <a href="/search" class="hidden rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-zinc-300 transition-colors hover:bg-white/10 hover:text-white sm:inline-flex">
+        搜索
+      </a>
+      <button
+        id="mobile-menu-btn"
+        class="rounded-lg border border-white/10 bg-white/5 p-2 text-zinc-300 transition-colors hover:bg-white/10 hover:text-white lg:hidden"
+        aria-label="打开菜单"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+    </div>
   </nav>
 
-  <!-- 移动端下拉菜单 -->
-  <div
-    id="mobile-menu"
-    class="sm:hidden hidden border-t border-zinc-800 bg-bg-dark/95 backdrop-blur-md"
-  >
-    <div class="px-4 py-3 flex flex-col gap-1">
+  <div id="mobile-menu" class="hidden border-t border-white/10 bg-black/75 px-4 py-3 backdrop-blur-2xl lg:hidden">
+    <div class="grid gap-1">
       {navLinks.map((link) => {
         const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
         return (
           <a
             href={link.href}
-            class={`px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-              isActive
-                ? 'text-primary bg-primary/10'
-                : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50'
+            class={`rounded-lg px-3 py-2.5 text-sm font-medium ${
+              isActive ? 'bg-white/12 text-white' : 'text-zinc-400 hover:bg-white/8 hover:text-zinc-100'
             }`}
           >
             {link.label}
           </a>
         );
       })}
+      <a href="/search" class="rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-400 hover:bg-white/8 hover:text-zinc-100">搜索</a>
+      <div class="mt-2 flex w-fit rounded-lg border border-white/10 bg-white/5 p-1">
+        <button type="button" data-theme-choice="system" class="theme-choice" title="跟随系统" aria-pressed="true">A</button>
+        <button type="button" data-theme-choice="dark" class="theme-choice" title="深色" aria-pressed="false">D</button>
+        <button type="button" data-theme-choice="light" class="theme-choice" title="浅色" aria-pressed="false">L</button>
+      </div>
     </div>
   </div>
 </header>
 
 <script>
-  // 移动端菜单切换
   const btn = document.getElementById('mobile-menu-btn');
   const menu = document.getElementById('mobile-menu');
   if (btn && menu) {
-    btn.addEventListener('click', () => {
-      menu.classList.toggle('hidden');
-    });
+    btn.addEventListener('click', () => menu.classList.toggle('hidden'));
   }
 </script>

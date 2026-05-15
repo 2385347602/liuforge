@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title="日记随笔" description="LiuForge 的日记随笔">
+  <h1 class="mb-8 text-4xl font-black text-white">日记随笔</h1>
+  <div class="space-y-4">
+    {posts.map((post) => (
+      <a href={`/blog/${post.id.replace(/\.mdx$/, '')}`} class="glass block rounded-2xl p-5">
+        <time class="text-xs text-zinc-500">{post.data.date.toLocaleDateString('zh-CN')}</time>
+        <h2 class="mt-2 text-xl font-extrabold text-white">{post.data.title}</h2>
+        <p class="mt-2 text-sm text-zinc-400">{post.data.description}</p>
+      </a>
+    ))}
+  </div>
+</BaseLayout>

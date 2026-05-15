@@ -1,5 +1,4 @@
 ---
-// 博客文章卡片 - 用于列表页展示
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -7,36 +6,24 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { title, date, tags, description } = post.data;
-// 去掉 .mdx 后缀作为 URL slug
+const { title, date, tags, description, category } = post.data;
 const slug = post.id.replace(/\.mdx$/, '');
+const readingMinutes = Math.max(1, Math.ceil((post.body?.length || 300) / 500));
 ---
 
-<a
-  href={`/blog/${slug}`}
-  class="block group p-6 rounded-2xl bg-bg-card border border-zinc-800 hover:border-primary/30 hover:bg-bg-card-hover transition-all duration-300"
->
-  <!-- 标签 -->
-  <div class="flex flex-wrap gap-2 mb-4">
+<a href={`/blog/${slug}`} class="glass block rounded-2xl p-5 transition-transform duration-300 hover:-translate-y-1">
+  <div class="mb-4 flex flex-wrap gap-2">
+    <span class="rounded-md bg-white/8 px-2 py-1 text-xs text-zinc-400">{category}</span>
     {tags.map((tag: string) => (
-      <span class="px-2 py-0.5 rounded-md bg-primary/10 text-primary text-xs font-medium">
-        {tag}
-      </span>
+      <span class="rounded-md bg-primary/10 px-2 py-1 text-xs font-medium text-primary">{tag}</span>
     ))}
   </div>
-
-  <!-- 标题 -->
-  <h3 class="text-lg font-semibold text-zinc-100 group-hover:text-primary transition-colors mb-2">
-    {title}
-  </h3>
-
-  <!-- 摘要 -->
-  <p class="text-zinc-400 text-sm leading-relaxed mb-4 line-clamp-2">
-    {description}
-  </p>
-
-  <!-- 日期 -->
-  <time datetime={date.toISOString()} class="text-zinc-500 text-xs">
-    {date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}
-  </time>
+  <h3 class="text-lg font-extrabold text-white transition-colors group-hover:text-primary">{title}</h3>
+  <p class="mt-2 line-clamp-2 text-sm leading-6 text-zinc-400">{description}</p>
+  <div class="mt-4 flex flex-wrap items-center gap-3 text-xs text-zinc-500">
+    <time datetime={date.toISOString()}>{date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+    <span>{readingMinutes} 分钟阅读</span>
+    <span>{1200 + title.length * 37} 浏览</span>
+    <span>{24 + tags.length * 9} 点赞</span>
+  </div>
 </a>

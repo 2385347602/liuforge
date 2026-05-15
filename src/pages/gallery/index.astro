@@ -1,0 +1,21 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import { gallery } from '@/data/profile';
+---
+
+<BaseLayout title="相册" description="LiuForge 的图片瀑布流相册">
+  <section class="mb-10">
+    <p class="text-sm font-semibold text-primary">Gallery</p>
+    <h1 class="mt-2 text-4xl font-black text-white">图片瀑布流</h1>
+  </section>
+  <div class="columns-1 gap-5 sm:columns-2 lg:columns-3">
+    {gallery.map((item) => (
+      <article class={`mb-5 break-inside-avoid overflow-hidden rounded-2xl bg-gradient-to-br ${item.gradient} ${item.height} p-5 shadow-2xl shadow-black/30`}>
+        <div class="flex h-full flex-col justify-end">
+          <p class="text-xs font-semibold uppercase tracking-widest text-white/55">{item.category}</p>
+          <h2 class="mt-2 text-2xl font-black text-white">{item.title}</h2>
+        </div>
+      </article>
+    ))}
+  </div>
+</BaseLayout>

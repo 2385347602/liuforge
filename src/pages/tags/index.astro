@@ -1,0 +1,23 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
+---
+
+<BaseLayout title="标签 / 分类" description="LiuForge 的文章标签和分类">
+  <h1 class="mb-8 text-4xl font-black text-white">标签 / 分类</h1>
+  <div class="glass rounded-2xl p-6">
+    <div class="flex flex-wrap gap-3">
+      {tags.map((tag) => {
+        const count = posts.filter((post) => post.data.tags.includes(tag)).length;
+        return (
+          <a href={`/blog?tag=${encodeURIComponent(tag)}`} class="rounded-lg border border-white/10 bg-white/8 px-4 py-3 text-sm font-semibold text-zinc-200 hover:border-primary/40 hover:text-primary">
+            {tag} <span class="text-zinc-500">{count}</span>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</BaseLayout>

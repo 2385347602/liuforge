@@ -1,0 +1,20 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+---
+
+<BaseLayout title="留言板" description="给 LiuForge 留言">
+  <section class="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
+    <div>
+      <p class="text-sm font-semibold text-primary">Guestbook</p>
+      <h1 class="mt-2 text-4xl font-black text-white">留言板</h1>
+      <p class="mt-4 text-zinc-400">静态版本先保留表单界面，后续可接入 GitHub Discussions、Giscus 或自建 API。</p>
+    </div>
+    <form class="glass rounded-2xl p-6">
+      <label class="block text-sm font-semibold text-zinc-300">昵称</label>
+      <input class="mt-2 w-full rounded-lg border border-white/10 bg-black/20 px-4 py-3 text-white outline-none focus:border-primary" placeholder="你的名字" />
+      <label class="mt-5 block text-sm font-semibold text-zinc-300">留言</label>
+      <textarea class="mt-2 min-h-36 w-full rounded-lg border border-white/10 bg-black/20 px-4 py-3 text-white outline-none focus:border-primary" placeholder="写点什么"></textarea>
+      <button type="button" class="mt-5 rounded-lg bg-primary px-5 py-3 text-sm font-bold text-black">提交留言</button>
+    </form>
+  </section>
+</BaseLayout>

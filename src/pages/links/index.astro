@@ -1,0 +1,22 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+
+const links = [
+  { name: 'Open Source', url: 'https://github.com', desc: '持续学习和贡献的地方' },
+  { name: 'Indie Hackers', url: 'https://www.indiehackers.com', desc: '独立产品和商业化灵感' },
+  { name: 'Astro', url: 'https://astro.build', desc: '本站使用的内容优先框架' },
+];
+---
+
+<BaseLayout title="友链" description="LiuForge 的友链与推荐站点">
+  <h1 class="mb-8 text-4xl font-black text-white">友链</h1>
+  <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {links.map((link) => (
+      <a href={link.url} target="_blank" rel="noopener noreferrer" class="glass rounded-2xl p-5 transition-transform hover:-translate-y-1">
+        <h2 class="text-xl font-extrabold text-white">{link.name}</h2>
+        <p class="mt-2 text-sm text-zinc-400">{link.desc}</p>
+        <p class="mt-4 text-xs text-primary">{link.url}</p>
+      </a>
+    ))}
+  </div>
+</BaseLayout>

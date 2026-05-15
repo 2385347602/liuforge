@@ -1,34 +1,21 @@
 ---
-// 博客列表页 - 支持按 tag 筛选
 import BaseLayout from '@/components/layout/BaseLayout.astro';
 import PostList from '@/components/blog/PostList.astro';
 import { getCollection } from 'astro:content';
 
-// 按日期降序排列所有文章
-const allPosts = (await getCollection('blog')).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime()
-);
-
-// 收集所有标签
-const allTags = [...new Set(allPosts.flatMap((p) => p.data.tags))].sort();
-
-// 读取 URL 查询参数 ?tag=xxx
+const allPosts = (await getCollection('blog'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
 const activeTag = Astro.url.searchParams.get('tag') || '';
-
-// 如果有活跃标签，筛选文章
-const posts = activeTag
-  ? allPosts.filter((p) => p.data.tags.includes(activeTag))
-  : allPosts;
+const posts = activeTag ? allPosts.filter((post) => post.data.tags.includes(activeTag)) : allPosts;
 ---
 
-<BaseLayout
-  title="博客"
-  description="技术文章与思考"
->
-  <div class="mb-8">
-    <h1 class="text-3xl sm:text-4xl font-extrabold text-zinc-100 mb-2">博客</h1>
-    <p class="text-zinc-500">共 {allPosts.length} 篇文章</p>
-  </div>
-
+<BaseLayout title="文章列表" description="技术文章、日记随笔和项目复盘">
+  <section class="mb-8">
+    <p class="text-sm font-semibold text-primary">Writing</p>
+    <h1 class="mt-2 text-4xl font-black text-white">文章列表</h1>
+    <p class="mt-3 text-zinc-400">共 {allPosts.length} 篇文章，支持标签分类、阅读时间、RSS 和全文搜索。</p>
+  </section>
   <PostList posts={posts} activeTag={activeTag} allTags={allTags} />
 </BaseLayout>
