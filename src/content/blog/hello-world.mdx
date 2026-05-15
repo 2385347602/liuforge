@@ -2,43 +2,42 @@
 title: "你好，世界！LiuForge 正式上线"
 date: 2025-01-15
 tags: ["随笔", "建站"]
+category: "随笔"
+lang: "zh"
 description: "记录 LiuForge 个人网站的搭建历程与技术选型思路。"
 ---
 
 ## 为什么建这个站
 
-一直以来都想拥有一个完全属于自己的数字花园，可以自由地写博客、分享工具、整理资源。趁着周末，用 **Astro + Vue 3 + Cloudflare Pages** 这套技术栈，一天时间搞定了整个站点。
+一直以来，我都想拥有一个完全属于自己的数字花园，可以自由地写博客、展示项目、整理资源。趁着周末，用 **Astro + Vue 3 + Cloudflare Pages** 这套技术栈，把站点的第一版搭了起来。
+
+这个站点不会只是一个文章列表。它更像一个个人数字展厅：文章、项目、工具、简历、时间线和一些生活碎片都会在这里汇合。
 
 ## 技术选型
 
-### Astro - 内容站点的最佳选择
+### Astro
 
-选 Astro 的核心原因就一个：**默认零 JavaScript**。博客和排行榜这类内容页面，根本不需要客户端 JS，纯 HTML 既快又省资源。需要交互的地方（工具集），再局部引入 Vue 组件即可。
+选择 Astro 的核心原因很简单：内容站默认应该尽量少发客户端 JavaScript。博客和作品页以静态内容为主，Astro 可以让它们保持轻量；需要交互的工具页面，再局部引入 Vue 组件。
 
 ```typescript
-// Astro 中引入 Vue 组件非常简单
-// 使用 client:load 指令让组件在客户端激活
+// Astro 中可以按需挂载 Vue 组件
 <JsonFormatter client:load />
 ```
 
-### Tailwind CSS 4 - 原子化 CSS 的新高度
+### Tailwind CSS 4
 
-Tailwind v4 相比 v3 有了质的飞跃：
-- **CSS-first 配置**，不再需要 `tailwind.config.js`
-- **更好的性能**，基于 Rust 的解析引擎
-- **自动内容检测**，无需配置 content 路径
+Tailwind v4 的 CSS-first 配置很适合快速迭代视觉系统。这个站点会长期调整，所以我更看重样式表达是否足够直接、维护成本是否足够低。
 
-### Cloudflare Pages - 零成本部署
+### Cloudflare Pages
 
-全球 CDN + 免费 SSL + 自动构建部署，push 代码就完事，真正零运维。
+静态站点很适合放在 Cloudflare Pages 上：构建简单、全球 CDN、免费 SSL，对个人项目来说足够省心。
 
-## 未来计划
+## 接下来
 
-- [ ] 接入 RSS 订阅
-- [ ] 添加评论系统（Giscus）
-- [ ] 更多实用工具
-- [ ] 英语文章支持
-
----
+- [x] 接入 RSS
+- [x] 增加搜索、标签和文章目录
+- [ ] 完善中英双语内容
+- [ ] 加入随机视频背景
+- [ ] 继续打磨项目作品页
 
 > 种一棵树最好的时间是十年前，其次是现在。

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/components/layout/BaseLayout.astro';
-import { profile, techStack, projects, timeline } from '@/data/profile';
+import { profile, projects, techStack, text, timeline } from '@/data/profile';
 ---
 
 <BaseLayout title="简历" description="LiuForge 简历页">
@@ -8,8 +8,8 @@ import { profile, techStack, projects, timeline } from '@/data/profile';
     <div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
       <div>
         <h1 class="text-4xl font-black text-white">{profile.name}</h1>
-        <p class="mt-2 text-lg text-zinc-300">{profile.role}</p>
-        <p class="mt-3 max-w-2xl text-zinc-400">{profile.headline}</p>
+        <p class="mt-2 text-lg text-zinc-300">{text(profile.role)}</p>
+        <p class="mt-3 max-w-2xl text-zinc-400">{text(profile.headline)}</p>
       </div>
       <a href={`mailto:${profile.email}`} class="w-fit rounded-lg bg-primary px-5 py-3 text-sm font-bold text-black">联系我</a>
     </div>
@@ -23,14 +23,22 @@ import { profile, techStack, projects, timeline } from '@/data/profile';
       <div>
         <h2 class="text-xl font-extrabold text-white">项目经历</h2>
         <div class="mt-4 space-y-3">
-          {projects.map((project) => <p class="rounded-lg bg-white/5 p-3 text-sm text-zinc-300"><strong class="text-white">{project.title}</strong>：{project.impact}</p>)}
+          {projects.map((project) => (
+            <p class="rounded-lg bg-white/5 p-3 text-sm text-zinc-300">
+              <strong class="text-white">{project.title}</strong>：{text(project.impact)}
+            </p>
+          ))}
         </div>
       </div>
     </div>
     <div class="mt-8">
       <h2 class="text-xl font-extrabold text-white">个人时间线</h2>
       <div class="mt-4 grid gap-3">
-        {timeline.map((item) => <p class="rounded-lg border border-white/10 p-3 text-sm text-zinc-300"><span class="font-bold text-primary">{item.year}</span> · {item.title}</p>)}
+        {timeline.map((item) => (
+          <p class="rounded-lg border border-white/10 p-3 text-sm text-zinc-300">
+            <span class="font-bold text-primary">{item.year}</span> · {text(item.title)}
+          </p>
+        ))}
       </div>
     </div>
   </section>

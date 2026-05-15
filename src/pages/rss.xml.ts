@@ -11,7 +11,9 @@ const escapeXml = (value: string) =>
 
 export const GET: APIRoute = async (context) => {
   const site = context.site || new URL('https://liuforge.dev');
-  const posts = (await getCollection('blog')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+  const posts = (await getCollection('blog'))
+    .filter((post) => !post.data.draft && post.data.lang === 'zh')
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
   const items = posts.map((post) => {
     const link = new URL(`/blog/${post.id.replace(/\.mdx$/, '')}`, site).toString();
     return `<item><title>${escapeXml(post.data.title)}</title><link>${link}</link><guid>${link}</guid><pubDate>${post.data.date.toUTCString()}</pubDate><description>${escapeXml(post.data.description)}</description></item>`;

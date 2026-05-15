@@ -7,6 +7,7 @@ const blogCollection = defineCollection({
     date: z.date(),
     tags: z.array(z.string()).default([]),
     category: z.string().default('随笔'),
+    lang: z.enum(['zh', 'en']).default('zh'),
     description: z.string(),
     cover: z.string().optional(),
     draft: z.boolean().default(false),
@@ -16,8 +17,3 @@ const blogCollection = defineCollection({
 export const collections = {
   blog: blogCollection,
 };
-
-
-
-
-

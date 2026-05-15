@@ -4,7 +4,7 @@ import PostList from '@/components/blog/PostList.astro';
 import { getCollection } from 'astro:content';
 
 const allPosts = (await getCollection('blog'))
-  .filter((post) => !post.data.draft)
+  .filter((post) => !post.data.draft && post.data.lang === 'zh')
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
 const activeTag = Astro.url.searchParams.get('tag') || '';
@@ -15,7 +15,9 @@ const posts = activeTag ? allPosts.filter((post) => post.data.tags.includes(acti
   <section class="mb-8">
     <p class="text-sm font-semibold text-primary">Writing</p>
     <h1 class="mt-2 text-4xl font-black text-white">文章列表</h1>
-    <p class="mt-3 text-zinc-400">共 {allPosts.length} 篇文章，支持标签分类、阅读时间、RSS 和全文搜索。</p>
+    <p class="mt-3 text-zinc-400">
+      共 {allPosts.length} 篇文章，支持标签分类、阅读时间、RSS 和本地搜索。
+    </p>
   </section>
   <PostList posts={posts} activeTag={activeTag} allTags={allTags} />
 </BaseLayout>

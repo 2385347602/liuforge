@@ -7,34 +7,34 @@ interface Props {
   title: string;
   description?: string;
   fullWidth?: boolean;
+  lang?: 'zh' | 'en';
 }
 
-const { title, description, fullWidth = false } = Astro.props;
+const {
+  title,
+  description = 'LiuForge - 个人品牌主页、项目作品集与日记随笔',
+  fullWidth = false,
+  lang = 'zh',
+} = Astro.props;
 ---
 
 <!doctype html>
-<html lang="zh-CN" class="dark" data-theme="dark">
+<html lang={lang === 'zh' ? 'zh-CN' : 'en'} class="dark" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description || 'LiuForge - 个人品牌主页、项目作品集与日记随笔'} />
+    <meta name="description" content={description} />
     <title>{title} | LiuForge</title>
     <meta name="astro-view-transitions-enabled" content="true" />
     <meta name="view-transition" content="same-origin" />
     <meta name="theme-color" content="#050505" />
     <link rel="alternate" type="application/rss+xml" title="LiuForge RSS" href="/rss.xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body class="min-h-screen flex flex-col">
     <div id="scroll-progress" aria-hidden="true"></div>
     <div id="cursor-glow" aria-hidden="true"></div>
-    <Header />
+    <Header lang={lang} />
     <main class:list={[
       'flex-1 w-full',
       fullWidth ? '' : 'max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8',

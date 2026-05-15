@@ -1,0 +1,122 @@
+---
+import { heroFallbackScenes, heroVideos } from '@/data/media';
+---
+
+<div class="hero-backdrop absolute inset-0 -z-10 overflow-hidden" data-hero-backdrop data-scene="city" aria-hidden="true">
+  <video class="hero-video" data-hero-video autoplay muted loop playsinline preload="metadata"></video>
+  <div class="hero-video-scrim"></div>
+  <div class="hero-layer hero-layer-far" data-parallax-depth="0.08"></div>
+  <div class="hero-layer hero-layer-mid" data-parallax-depth="0.14"></div>
+  <div class="hero-layer hero-layer-near" data-parallax-depth="0.22"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-sheen"></div>
+</div>
+
+<script is:inline define:vars={{ videoSources: heroVideos, fallbackScenes: heroFallbackScenes }}>
+  const hero = document.querySelector('[data-hero-backdrop]');
+  const video = document.querySelector('[data-hero-video]');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  const pickRandom = (items) => items[Math.floor(Math.random() * items.length)];
+  let manifestVideos;
+
+  const loadManifestVideos = async () => {
+    if (manifestVideos) return manifestVideos;
+
+    try {
+      const response = await fetch('/videos/manifest.json', { cache: 'no-store' });
+      if (!response.ok) {
+        manifestVideos = [];
+        return manifestVideos;
+      }
+
+      const items = await response.json();
+      manifestVideos = Array.isArray(items)
+        ? items.filter((item) => item && typeof item.src === 'string')
+        : [];
+    } catch {
+      manifestVideos = [];
+    }
+
+    return manifestVideos;
+  };
+
+  const applyScene = () => {
+    if (!hero) return;
+    hero.dataset.scene = pickRandom(fallbackScenes);
+  };
+
+  const playRandomVideo = async () => {
+    if (!hero || !video || reducedMotion.matches) return;
+
+    const manifestSources = await loadManifestVideos();
+    const availableVideos = [...videoSources, ...manifestSources];
+    if (availableVideos.length === 0) return;
+
+    const lastVideo = sessionStorage.getItem('hero-video-src');
+    const candidates = availableVideos.filter((item) => item.src !== lastVideo);
+    const nextVideo = pickRandom(candidates.length > 0 ? candidates : availableVideos);
+
+    video.poster = nextVideo.poster || '';
+    video.src = nextVideo.src;
+    sessionStorage.setItem('hero-video-src', nextVideo.src);
+
+    video.addEventListener('canplay', () => {
+      hero.classList.add('is-video-ready');
+      video.play().catch(() => {
+        hero.classList.remove('is-video-ready');
+      });
+    }, { once: true });
+
+    video.addEventListener('error', () => {
+      hero.classList.remove('is-video-ready');
+    }, { once: true });
+
+    video.load();
+  };
+
+  const parallaxLayers = [...document.querySelectorAll('[data-parallax-depth]')];
+  let pointerX = 0;
+  let pointerY = 0;
+  let scrollY = window.scrollY;
+  let frame = 0;
+
+  const renderParallax = () => {
+    frame = 0;
+    parallaxLayers.forEach((layer) => {
+      const depth = Number(layer.dataset.parallaxDepth || 0);
+      const x = pointerX * depth;
+      const y = pointerY * depth - scrollY * depth * 0.22;
+      layer.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    });
+  };
+
+  const scheduleParallax = () => {
+    if (reducedMotion.matches || frame) return;
+    frame = window.requestAnimationFrame(renderParallax);
+  };
+
+  applyScene();
+  playRandomVideo();
+
+  window.addEventListener('pointermove', (event) => {
+    pointerX = event.clientX - window.innerWidth / 2;
+    pointerY = event.clientY - window.innerHeight / 2;
+    scheduleParallax();
+  }, { passive: true });
+
+  window.addEventListener('scroll', () => {
+    scrollY = window.scrollY;
+    scheduleParallax();
+  }, { passive: true });
+
+  reducedMotion.addEventListener('change', () => {
+    if (reducedMotion.matches) {
+      hero?.classList.remove('is-video-ready');
+      video?.pause();
+    } else {
+      playRandomVideo();
+      scheduleParallax();
+    }
+  });
+</script>

@@ -2,7 +2,7 @@
 import BaseLayout from '@/components/layout/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const posts = await getCollection('blog');
+const posts = (await getCollection('blog')).filter((post) => !post.data.draft && post.data.lang === 'zh');
 const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
 ---
 

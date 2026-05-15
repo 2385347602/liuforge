@@ -11,13 +11,14 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { title, date, tags, description, cover, category } = post.data;
+const { title, date, tags, description, cover, category, lang } = post.data;
 const { Content, headings } = await post.render();
 const toc = headings.filter((heading) => heading.depth >= 2 && heading.depth <= 3);
 const readingMinutes = Math.max(1, Math.ceil((post.body?.length || 300) / 500));
+const locale = lang === 'en' ? 'en-US' : 'zh-CN';
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} lang={lang}>
   <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-10">
     <article class="min-w-0">
       <header class="mb-10">
@@ -31,10 +32,10 @@ const readingMinutes = Math.max(1, Math.ceil((post.body?.length || 300) / 500));
         </div>
         <h1 class="text-3xl font-black leading-tight text-white sm:text-5xl">{title}</h1>
         <div class="mt-5 flex flex-wrap items-center gap-4 text-sm text-zinc-500">
-          <time datetime={date.toISOString()}>{date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
-          <span>{readingMinutes} 分钟阅读</span>
-          <span>{1200 + title.length * 37} 浏览</span>
-          <span>{24 + tags.length * 9} 点赞</span>
+          <time datetime={date.toISOString()}>{date.toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+          <span>{readingMinutes} {lang === 'en' ? 'min read' : '分钟阅读'}</span>
+          <span>{1200 + title.length * 37} {lang === 'en' ? 'views' : '浏览'}</span>
+          <span>{24 + tags.length * 9} {lang === 'en' ? 'likes' : '点赞'}</span>
         </div>
       </header>
       {cover && <img src={cover} alt={title} class="mb-10 w-full rounded-2xl border border-white/10" loading="eager" />}
@@ -46,7 +47,9 @@ const readingMinutes = Math.max(1, Math.ceil((post.body?.length || 300) / 500));
     {toc.length > 0 && (
       <aside class="hidden lg:block">
         <nav class="glass sticky top-24 rounded-2xl p-5">
-          <h2 class="mb-4 text-xs font-bold uppercase tracking-widest text-zinc-500">文章目录</h2>
+          <h2 class="mb-4 text-xs font-bold uppercase tracking-widest text-zinc-500">
+            {lang === 'en' ? 'Table of Contents' : '文章目录'}
+          </h2>
           <ul class="space-y-2 border-l border-white/10">
             {toc.map((heading) => (
               <li>

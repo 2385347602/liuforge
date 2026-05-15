@@ -2,7 +2,7 @@
   "name": "liuforge",
   "type": "module",
   "version": "1.0.0",
-  "description": "LiuForge - 个人网站，包含博客、工具集和排行榜",
+  "description": "LiuForge - 个人品牌主页、项目作品集、博客与工具集合",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

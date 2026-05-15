@@ -1,22 +1,23 @@
 ---
+import { ui, type Language } from '@/data/profile';
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = 'zh' } = Astro.props;
 const navLinks = [
-  { href: '/', label: '首页' },
-  { href: '/blog', label: '博客' },
-  { href: '/tools', label: '工具集' },
-  { href: '/rankings', label: '排行榜' },
-  { href: '/about', label: '关于' },
-  { href: '/gear', label: '装备' },
-
-
-  { href: '/blog', label: '文章' },
-  { href: '/projects', label: '项目' },
-  { href: '/timeline', label: '时间线' },
-  { href: '/gallery', label: '相册' },
-  { href: '/resume', label: '简历' },
-  { href: '/about', label: '关于' },
+  { href: '/', label: ui.nav.home[lang] },
+  { href: '/blog', label: ui.nav.blog[lang] },
+  { href: '/projects', label: ui.nav.projects[lang] },
+  { href: '/timeline', label: ui.nav.timeline[lang] },
+  { href: '/gallery', label: ui.nav.gallery[lang] },
+  { href: '/resume', label: ui.nav.resume[lang] },
+  { href: '/about', label: ui.nav.about[lang] },
 ];
 
 const currentPath = Astro.url.pathname;
+const languageLabel = lang === 'zh' ? 'EN' : '中文';
 ---
 
 <header class="sticky top-0 z-50 border-b border-white/10 bg-black/35 backdrop-blur-2xl">
@@ -52,12 +53,15 @@ const currentPath = Astro.url.pathname;
 
     <div class="flex items-center gap-2">
       <div class="hidden rounded-lg border border-white/10 bg-white/5 p-1 sm:flex" aria-label="主题切换">
-        <button type="button" data-theme-choice="system" class="theme-choice" title="跟随系统" aria-pressed="true">A</button>
-        <button type="button" data-theme-choice="dark" class="theme-choice" title="深色" aria-pressed="false">D</button>
-        <button type="button" data-theme-choice="light" class="theme-choice" title="浅色" aria-pressed="false">L</button>
+        <button type="button" data-theme-choice="system" class="theme-choice" title={ui.theme.system[lang]} aria-pressed="true">A</button>
+        <button type="button" data-theme-choice="dark" class="theme-choice" title={ui.theme.dark[lang]} aria-pressed="false">D</button>
+        <button type="button" data-theme-choice="light" class="theme-choice" title={ui.theme.light[lang]} aria-pressed="false">L</button>
       </div>
       <a href="/search" class="hidden rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-zinc-300 transition-colors hover:bg-white/10 hover:text-white sm:inline-flex">
-        搜索
+        {ui.nav.search[lang]}
+      </a>
+      <a href={lang === 'zh' ? '/en' : '/'} class="hidden rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-zinc-300 transition-colors hover:bg-white/10 hover:text-white sm:inline-flex">
+        {languageLabel}
       </a>
       <button
         id="mobile-menu-btn"
@@ -86,11 +90,12 @@ const currentPath = Astro.url.pathname;
           </a>
         );
       })}
-      <a href="/search" class="rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-400 hover:bg-white/8 hover:text-zinc-100">搜索</a>
+      <a href="/search" class="rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-400 hover:bg-white/8 hover:text-zinc-100">{ui.nav.search[lang]}</a>
+      <a href={lang === 'zh' ? '/en' : '/'} class="rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-400 hover:bg-white/8 hover:text-zinc-100">{languageLabel}</a>
       <div class="mt-2 flex w-fit rounded-lg border border-white/10 bg-white/5 p-1">
-        <button type="button" data-theme-choice="system" class="theme-choice" title="跟随系统" aria-pressed="true">A</button>
-        <button type="button" data-theme-choice="dark" class="theme-choice" title="深色" aria-pressed="false">D</button>
-        <button type="button" data-theme-choice="light" class="theme-choice" title="浅色" aria-pressed="false">L</button>
+        <button type="button" data-theme-choice="system" class="theme-choice" title={ui.theme.system[lang]} aria-pressed="true">A</button>
+        <button type="button" data-theme-choice="dark" class="theme-choice" title={ui.theme.dark[lang]} aria-pressed="false">D</button>
+        <button type="button" data-theme-choice="light" class="theme-choice" title={ui.theme.light[lang]} aria-pressed="false">L</button>
       </div>
     </div>
   </div>
